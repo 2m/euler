@@ -11,4 +11,3 @@ def fibFrom(a: BigInt, b: BigInt): Stream[BigInt] = {
   a #:: fibFrom(b, a + b)
 }
 fibFrom(1, 1).takeWhile(_ <= 4000000).sum
-

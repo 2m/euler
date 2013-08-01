@@ -21,6 +21,3 @@ def getPrimeFactors(composite: BigInt):List[BigInt] = {
   }
 }
 getPrimeFactors(BigInt("600851475143")).max
-
-
-
