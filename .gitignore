@@ -1,0 +1,13 @@
+.metadata
+*/.classpath
+*/.project
+**/.settings/*
+**/bin/*
+**/gen/*
+*/project.properties
+*/lint.xml
+*/target/*
+build/
+.gradle/
+.idea/
+*.iml
