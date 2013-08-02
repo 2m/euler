@@ -5,7 +5,8 @@
  */
 
 def isPalindrome(i: Int) = {
-  "%d".format(i).reverse.equals("%d".format(i))
+  val str = i.toString
+  i.reverse == i
 }
 
 (for (a <- 100 to 999; b <- a to 999 if isPalindrome(a * b)) yield a * b).max
