@@ -27,8 +27,29 @@ def divisors(a: BigInt) = {
   longRangeInclusive(1, a / 2).filter(a % _ == 0).toList :+ a
 }
 
+def getPrimeFactors(composite: BigInt):List[BigInt] = {
+  longRangeInclusive(2, composite).filter(composite % _ == 0).take(1).toList.flatMap { x =>
+    if (x == composite) {
+      List(composite)
+    }
+    else {
+      getPrimeFactors(x) ::: getPrimeFactors(composite / x)
+    }
+  }
+}
+
 def triangleSequence(a: BigInt, idx: BigInt): Stream[BigInt] = {
   a #:: triangleSequence(a + idx, idx + 1)
 }
 
-triangleSequence(1, 2).dropWhile(divisors(_).length <= 500).take(1)(0) // takes a while
+val divisorCount = 500
+
+// Quite a slow version. Took more than a couple of hour to find a triangle number with more than 500 divisors.
+// triangleSequence(1, 2).dropWhile(divisors(_).length <= divisorCount).take(1)(0)
+
+// Faster version.
+// Every divisor of a number n is a linear combination (with coefficients of 0 or 1) of n's prime factors.
+triangleSequence(1, 2).map(a => {
+  val primeFactors = getPrimeFactors(a)
+  (a, (1 to primeFactors.length).flatMap(primeFactors.combinations(_)).filter(_.product <= a).length + 1)
+}).dropWhile(_._2 <= divisorCount).take(1)(0)
